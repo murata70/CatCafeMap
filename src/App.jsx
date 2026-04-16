@@ -25,7 +25,7 @@ function App() {
 
   // Google Mapsでルートを開く関数
   const openRoute = (lat, lng) => {
-    // 目的地を指定してGoogle Mapsのルート検索を開くURL（${lat}に修正しました）
+    // 目的地を指定してGoogle Mapsのルート検索を開くURL
     const url = `https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}`;
     window.open(url, "_blank");
   };
@@ -40,19 +40,31 @@ function App() {
         transform: "translateX(-50%)", 
         zIndex: 1000,
         backgroundColor: "rgba(255, 255, 255, 0.9)",
-        padding: "10px 20px",
+        padding: "8px 15px",     // 上下左右の余白を少しスリムに
         borderRadius: "20px",
         boxShadow: "0 2px 10px rgba(0,0,0,0.2)",
-        pointerEvents: "none"
+        pointerEvents: "none",
+        width: "auto",            // 幅は中身に合わせる
+        maxWidth: "90%",          // 画面からはみ出さない最大幅
+        textAlign: "center"
       }}>
-        <h1 style={{ margin: 0, fontSize: "20px", color: "#ff9900" }}>🐾 猫カフェマップ 🐾</h1>
+        <h1 style={{ 
+          margin: 0, 
+          fontSize: "16px",       // 文字サイズを少し小さく
+          color: "#ff9900",
+          whiteSpace: "nowrap",   // ★改行を禁止して1行にする
+          overflow: "hidden",     // 万が一はみ出しても隠す
+          textOverflow: "ellipsis" // 万が一はみ出したら「...」にする
+        }}>
+          🐾 cat cafe map 🐾
+        </h1>
       </div>
       
       {/* 地図コンテナ */}
       <MapContainer center={position} zoom={13} style={{ height: "100%", width: "100%" }}>
         {/* Voyagerデザインの地図タイル */}
         <TileLayer
-          attribution='&copy; <a href="https://carto.com/attributions">CARTO</a>'
+          attribution='© <a href="https://carto.com/attributions">CARTO</a>'
           url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png"
         />
 
@@ -69,7 +81,7 @@ function App() {
                     backgroundColor: "#ff9900",
                     color: "white",
                     border: "none",
-                    padding: "10px 15px", // スマホで押しやすいサイズに
+                    padding: "10px 15px",
                     borderRadius: "5px",
                     cursor: "pointer",
                     marginTop: "5px",
